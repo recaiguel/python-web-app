@@ -1,3 +1,4 @@
+import os
 import random
 from flask import Flask, render_template, request, session
 
@@ -56,4 +57,11 @@ def home():
     return render_template('index.html', ausgabe=session['meldung'])
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    """ app.run(debug=True) """
+
+    # Wir frangen das System: "Welchen Port hast du für mich?"
+    # Wenn keiner da ist (lokal), nehmen wir die 5000.
+    port = int(os.environ.get("PORT", 5000))
+
+    # Wir sagen Flask: Höre auf 0.0.0.0 und nutze den Port von oben.
+    app.run(host='0.0.0.0', port=port)
